@@ -52,8 +52,9 @@ export function useContent() {
     refresh();
 
     const interval = setInterval(() => {
+      console.log("hello")
       refresh();
-    }, 2 * 1000);
+    }, 5 * 1000);
 
     return () => {
       clearInterval(interval);

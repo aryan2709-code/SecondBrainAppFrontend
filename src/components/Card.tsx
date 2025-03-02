@@ -2,6 +2,8 @@ import axios from "axios";
 import { Removeicon } from "../icons/Removeicon";
 import { ShareIcon } from "../icons/Shareicon";
 import { BACKEND_URL } from "../config";
+import { useState } from "react";
+
 
 
 interface CardProps {
@@ -13,7 +15,10 @@ interface CardProps {
 }
 
 
+
 export function Card({title , link ,type , tags , contentId} : CardProps ) {
+  
+  const [deleting , setIsDeleting ] = useState(false);
     function getYouTubeEmbedUrl(url:string) {
         // Handle different YouTube URL formats
         let videoId = '';
@@ -45,6 +50,7 @@ export function Card({title , link ,type , tags , contentId} : CardProps ) {
                     </div>
                     <div>{title}</div>  
                     <div onClick={() => {
+                      setIsDeleting(true);
                       axios.delete(`${BACKEND_URL}/api/v1/content` , {
                         data : {
                           contentId : contentId
@@ -53,7 +59,16 @@ export function Card({title , link ,type , tags , contentId} : CardProps ) {
                           Authorization : localStorage.getItem("token")
                         }
                       })
-                    }} className="text-gray-500 justify-self-end absolute top-8 right-4 cursor-pointer" ><Removeicon /></div>
+                      .then( () => {
+                        setIsDeleting(false);
+                      } 
+                      )
+                      .catch((error) => {
+                        console.error("error deleting: ",error)
+                        setIsDeleting(false);
+                      })
+                     
+                    }} className="text-gray-500 justify-self-end absolute top-8 right-4 cursor-pointer text-xl" > {deleting == true ? "DELETING---" : <Removeicon /> }  </div>
                 </div>
                 
              </div>
