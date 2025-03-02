@@ -3,6 +3,7 @@ import { Removeicon } from "../icons/Removeicon";
 import { ShareIcon } from "../icons/Shareicon";
 import { BACKEND_URL } from "../config";
 
+
 interface CardProps {
     title : string;
     link : string;
@@ -10,6 +11,7 @@ interface CardProps {
     tags?: string[];
     contentId : string;
 }
+
 
 export function Card({title , link ,type , tags , contentId} : CardProps ) {
     function getYouTubeEmbedUrl(url:string) {
@@ -71,13 +73,10 @@ export function Card({title , link ,type , tags , contentId} : CardProps ) {
     allowFullScreen>
   </iframe> 
 }
-
               {
                 type == "twitter" && <blockquote className="twitter-tweet"> <a href={link.replace("x.com" , "twitter.com")}>
                 February 20, 2025</a></blockquote> 
               }
-
-
                 </div>
                
         
