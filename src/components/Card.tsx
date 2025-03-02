@@ -37,7 +37,7 @@ export function Card({title , link ,type , tags} : CardProps ) {
                     <div className="text-gray-500 pr-2">
                         <a href = {link} target="blank"><ShareIcon /></a>
                     </div>
-                    {title}
+                    <div>{title}</div>  
                 </div>
                 
              </div>
