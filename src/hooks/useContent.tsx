@@ -53,7 +53,7 @@ export function useContent() {
 
     const interval = setInterval(() => {
       refresh();
-    }, 5 * 1000);
+    }, 2 * 1000);
 
     return () => {
       clearInterval(interval);

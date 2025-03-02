@@ -1,13 +1,17 @@
+import axios from "axios";
+import { Removeicon } from "../icons/Removeicon";
 import { ShareIcon } from "../icons/Shareicon";
+import { BACKEND_URL } from "../config";
 
 interface CardProps {
     title : string;
     link : string;
     type : "twitter" | "youtube";
     tags?: string[];
+    contentId : string;
 }
 
-export function Card({title , link ,type , tags} : CardProps ) {
+export function Card({title , link ,type , tags , contentId} : CardProps ) {
     function getYouTubeEmbedUrl(url:string) {
         // Handle different YouTube URL formats
         let videoId = '';
@@ -31,13 +35,23 @@ export function Card({title , link ,type , tags} : CardProps ) {
       }
 
     return <div> 
-        <div className= "p-8 bg-white rounded-md  border border-gray-200 min-h-0 w-96">
+        <div className= "relative p-8 bg-white rounded-md  border border-gray-200 min-h-0 w-96">
              <div className="flex justify-between">
-                <div className="flex items-center text-md">
+                <div className="flex items-center justify-center text-md">
                     <div className="text-gray-500 pr-2">
                         <a href = {link} target="blank"><ShareIcon /></a>
                     </div>
                     <div>{title}</div>  
+                    <div onClick={() => {
+                      axios.delete(`${BACKEND_URL}/api/v1/content` , {
+                        data : {
+                          contentId : contentId
+                        },
+                        headers : {
+                          Authorization : localStorage.getItem("token")
+                        }
+                      })
+                    }} className="text-gray-500 justify-self-end absolute top-8 right-4 cursor-pointer" ><Removeicon /></div>
                 </div>
                 
              </div>

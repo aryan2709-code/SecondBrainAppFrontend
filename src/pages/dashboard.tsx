@@ -13,6 +13,7 @@ export function Dashboard() {
   const { contents, loading, error , refresh } = useContent();
   const [modalOpen, setModalOpen] = useState(false);
   const [itemsType , setItemsType] = useState("all");
+  
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -77,6 +78,7 @@ export function Dashboard() {
        {itemsType == "all" && <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
          {contents.map((content) => (
            <Card
+             contentId= {content._id}
              key={content._id}
              title={content.title}
              link={content.link}
@@ -91,6 +93,7 @@ export function Dashboard() {
  .filter((content) => content.type === "youtube") // Filtering for YouTube type
  .map((content) => (
    <Card
+   contentId= {content._id}
      key={content._id}
      title={content.title}
      link={content.link}
@@ -105,6 +108,7 @@ export function Dashboard() {
  .filter((content) => content.type === "twitter") // Filtering for YouTube type
  .map((content) => (
    <Card
+   contentId= {content._id}
      key={content._id}
      title={content.title}
      link={content.link}
